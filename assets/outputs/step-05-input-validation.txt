@@ -1,0 +1,66 @@
+================================================================================
+Step 05: SQUAD Implements Input Validation
+================================================================================
+
+--- Prompt ---
+
+$ gh copilot -- --agent squad -p "Dallas, implement Phase 1 from PLAN.md: Add input 
+validation using Joi to the task endpoints. Create src/schemas/task.js with Joi schemas 
+for create and update operations, create src/middleware/validate.js with reusable 
+validation middleware, and update src/routes/tasks.js to use the validation. Install 
+Joi as a dependency. Follow the plan exactly." --allow-all
+
+--- Squad Response ---
+
+Squad read PLAN.md, routing.md, team.md, registry.json, and Dallas's charter.
+
+🔧 Dallas (claude-sonnet-4.5) — implementing Joi validation for task endpoints
+📋 Scribe (claude-haiku-4.5 · fast) — logging after work completes
+
+Dallas spawned as a background agent, read the full Phase 1 spec, and implemented:
+
+✅ Phase 1 complete. Dallas implemented Joi input validation:
+
+- Installed joi as a dependency (npm install joi)
+- Created src/schemas/task.js — create & update schemas with:
+  - title: required string, 1-200 chars, trimmed
+  - description: optional string, max 2000 chars
+  - status: optional, must be one of: pending, in-progress, completed
+  - priority: optional, must be one of: low, medium, high
+  - Update schema: same fields but none required, min 1 field required
+- Created src/middleware/validate.js — reusable middleware with:
+  - abortEarly: false (reports all errors)
+  - stripUnknown: true (removes unknown fields)
+  - Returns structured 400 error with details array
+- Updated src/routes/tasks.js — validation wired into POST and PUT routes
+- Committed as 3954a6a
+
+Changes: +0 -0 (all committed by Squad agent)
+Requests: 3 Premium (4m 27s)
+Tokens: ↑ 1.1m · ↓ 10.6k · 939.9k (cached)
+
+--- Verification ---
+
+$ curl -X POST http://localhost:3000/api/tasks -H "Content-Type: application/json" -d '{}'
+
+{
+  "error": {
+    "status": 400,
+    "message": "Validation failed",
+    "details": [
+      { "field": "title", "message": "Title is required" }
+    ]
+  }
+}
+
+$ curl -X POST http://localhost:3000/api/tasks -H "Content-Type: application/json" \
+  -d '{"title":"Valid task","priority":"high"}'
+
+{
+  "id": 6,
+  "title": "Valid task",
+  "status": "pending",
+  "priority": "high",
+  "createdAt": "2026-04-16T18:14:20.255Z",
+  "updatedAt": "2026-04-16T18:14:20.255Z"
+}
