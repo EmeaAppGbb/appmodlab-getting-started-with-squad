@@ -1,0 +1,50 @@
+================================================================================
+Step 08: SQUAD Adds Test Suite
+================================================================================
+
+--- Prompt ---
+
+$ gh copilot -- --agent squad -p "Kane, implement Phase 3 from PLAN.md: Write 
+comprehensive Jest tests for the TaskFlow API. Install jest and supertest as dev 
+dependencies. Create tests/store.test.js for unit tests on the data store and 
+tests/api.test.js for integration tests on all API endpoints. Add a test script to 
+package.json. Make sure the tests pass. Follow the plan exactly." --allow-all
+
+--- Squad Response ---
+
+Squad loaded PLAN.md (full Phase 3 spec), all source files, and Kane's charter.
+
+Kane implemented Phase 3:
+
+1. Installed jest and supertest as dev dependencies
+2. Updated package.json — added test, test:watch, test:coverage scripts and Jest config
+3. Updated src/data/store.js — added resetStore() helper for test isolation
+4. Updated src/index.js — exported app and made listen() conditional 
+   (require.main === module) so supertest works
+5. Created tests/unit/store.test.js — 17 unit tests covering:
+   - All store CRUD operations
+   - ID coercion
+   - Default values
+   - Timestamps
+   - Protected fields
+6. Created tests/integration/tasks.test.js — 26 integration tests covering:
+   - All API endpoints (GET, POST, PUT, DELETE)
+   - Validation errors
+   - Error response shapes
+   - Cross-cutting error handling
+
+--- Test Run Results ---
+
+$ npm test
+
+Test Suites: 2 passed, 2 total
+Tests:       43 passed, 43 total
+Snapshots:   0 total
+Time:        ~2s
+
+PASS  tests/unit/store.test.js
+PASS  tests/integration/tasks.test.js
+
+Changes: +401 -4
+Requests: 3 Premium (2m 56s)
+Tokens: ↑ 834.6k · ↓ 8.0k · 752.6k (cached)

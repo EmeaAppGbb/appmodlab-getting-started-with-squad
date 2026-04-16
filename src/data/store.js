@@ -83,5 +83,9 @@ module.exports = {
     
     tasks.splice(index, 1);
     return true;
+  },
+  resetStore: () => {
+    tasks = [];
+    nextId = 1;
   }
 };
