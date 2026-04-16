@@ -1,0 +1,95 @@
+================================================================================
+Step 02: Initialize SQUAD on the Repository
+================================================================================
+
+--- Run Squad Init ---
+
+$ npx @bradygaster/squad-cli init
+
+Let's build your team.
+
+✓ .squad\config.json
+✓ .squad\agents\scribe\charter.md
+✓ .squad\agents\scribe\history.md
+✓ .squad\agents\ralph\charter.md
+✓ .squad\agents\ralph\history.md
+✓ .squad\identity\now.md
+✓ .squad\identity\wisdom.md
+✓ .squad\ceremonies.md
+✓ .squad\decisions.md
+✓ .squad\team.md
+✓ .squad\routing.md
+✓ .copilot/skills
+✓ .gitattributes
+✓ .gitignore
+✓ .github\agents\squad.agent.md
+✓ .squad\templates
+✓ .github\workflows\squad-heartbeat.yml
+✓ .github\workflows\squad-issue-assign.yml
+✓ .github\workflows\squad-triage.yml
+✓ .github\workflows\sync-squad-labels.yml
+✓ .copilot\mcp-config.json
+✓ .gitignore
+✓ .squad\.first-run
+
+◆ SQUAD
+
+  📁  Team workspace
+  📋  Skills & ceremonies
+  🔧  Workflows & CI
+  🧠  Identity & wisdom
+  🤖  Copilot agent prompt
+
+Your team is ready. Run squad to start.
+
+--- Files Created ---
+
+The init command created the following directory structure:
+
+.squad/
+  config.json          - Squad configuration (version 1)
+  team.md              - Team roster and project context
+  routing.md           - Work routing rules (who handles what)
+  ceremonies.md        - Team ceremonies and rituals
+  decisions.md         - Decision log
+  identity/
+    now.md             - Current project identity
+    wisdom.md          - Accumulated team wisdom
+  agents/
+    scribe/            - Session logging agent
+      charter.md       - Agent charter/role definition
+      history.md       - Agent activity history
+    ralph/             - Quality/review agent
+      charter.md
+      history.md
+  templates/           - Templates for team artifacts
+
+.github/
+  agents/
+    squad.agent.md     - Copilot agent prompt for GitHub
+  workflows/
+    squad-heartbeat.yml     - Periodic heartbeat workflow
+    squad-issue-assign.yml  - Auto-assign issues workflow
+    squad-triage.yml        - Issue triage workflow
+    sync-squad-labels.yml   - Sync squad labels workflow
+
+.copilot/
+  mcp-config.json      - MCP configuration
+  skills/              - Copilot skills directory
+
+--- Team Configuration ---
+
+# Squad Team
+> appmodlab-getting-started-with-squad
+
+## Coordinator
+| Name | Role | Notes |
+|------|------|-------|
+| Squad | Coordinator | Routes work, enforces handoffs and reviewer gates. |
+
+## Members
+(Empty - agents will be added in subsequent steps)
+
+## Project Context
+- **Project:** appmodlab-getting-started-with-squad
+- **Created:** 2026-04-16
