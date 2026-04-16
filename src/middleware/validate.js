@@ -1,8 +1,10 @@
+const { ValidationError } = require('../errors');
+
 const validate = (schema) => {
   return (req, res, next) => {
     const { error, value } = schema.validate(req.body, {
-      abortEarly: false,      // Report all errors, not just the first
-      stripUnknown: true,      // Remove fields not in the schema
+      abortEarly: false,
+      stripUnknown: true,
     });
 
     if (error) {
@@ -10,16 +12,10 @@ const validate = (schema) => {
         field: d.path.join('.'),
         message: d.message,
       }));
-      return res.status(400).json({
-        error: {
-          status: 400,
-          message: 'Validation failed',
-          details,
-        },
-      });
+      return next(new ValidationError('Validation failed', details));
     }
 
-    req.body = value; // Use sanitized/trimmed values
+    req.body = value;
     next();
   };
 };

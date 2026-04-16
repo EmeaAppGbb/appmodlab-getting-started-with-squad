@@ -3,6 +3,7 @@ const router = express.Router();
 const store = require('../data/store');
 const validate = require('../middleware/validate');
 const { createTaskSchema, updateTaskSchema } = require('../schemas/task');
+const { NotFoundError } = require('../errors');
 
 router.get('/', (req, res) => {
   const tasks = store.getTasks();
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const task = store.getTaskById(req.params.id);
   if (!task) {
-    return res.status(404).json({ error: 'Task not found' });
+    throw new NotFoundError('Task', req.params.id);
   }
   res.json(task);
 });
@@ -25,7 +26,7 @@ router.post('/', validate(createTaskSchema), (req, res) => {
 router.put('/:id', validate(updateTaskSchema), (req, res) => {
   const updatedTask = store.updateTask(req.params.id, req.body);
   if (!updatedTask) {
-    return res.status(404).json({ error: 'Task not found' });
+    throw new NotFoundError('Task', req.params.id);
   }
   res.json(updatedTask);
 });
@@ -33,7 +34,7 @@ router.put('/:id', validate(updateTaskSchema), (req, res) => {
 router.delete('/:id', (req, res) => {
   const deleted = store.deleteTask(req.params.id);
   if (!deleted) {
-    return res.status(404).json({ error: 'Task not found' });
+    throw new NotFoundError('Task', req.params.id);
   }
   res.status(204).send();
 });

@@ -1,5 +1,6 @@
 const express = require('express');
 const taskRoutes = require('./routes/tasks');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,10 +19,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`TaskFlow API running on port ${PORT}`);
