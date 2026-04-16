@@ -7,3 +7,5 @@
 
 ## Learnings
 
+- **Joi validation (Phase 1):** Added input validation to POST and PUT `/api/tasks` routes using Joi schemas and a reusable `validate()` middleware. Schemas enforce title length (1–200), description length (≤2000), enum values for status/priority, and require at least one field on updates. Unknown fields are stripped and strings are trimmed automatically.
+

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const store = require('../data/store');
+const validate = require('../middleware/validate');
+const { createTaskSchema, updateTaskSchema } = require('../schemas/task');
 
 router.get('/', (req, res) => {
   const tasks = store.getTasks();
@@ -15,12 +17,12 @@ router.get('/:id', (req, res) => {
   res.json(task);
 });
 
-router.post('/', (req, res) => {
+router.post('/', validate(createTaskSchema), (req, res) => {
   const newTask = store.createTask(req.body);
   res.status(201).json(newTask);
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validate(updateTaskSchema), (req, res) => {
   const updatedTask = store.updateTask(req.params.id, req.body);
   if (!updatedTask) {
     return res.status(404).json({ error: 'Task not found' });
