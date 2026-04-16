@@ -1,0 +1,91 @@
+🤲 Hands — Iteration: TASK-002, TASK-003, TASK-004
+====================================================
+
+## TASK-002: Centralized Error Handling
+
+$ cat src/errors/index.js
+  - AppError (base class, configurable statusCode)
+  - NotFoundError (extends AppError, 404)
+  - ValidationError (extends AppError, 400 + details)
+
+$ cat src/middleware/errorHandler.js
+  - errorHandler: centralized Express error middleware
+  - notFoundHandler: 404 catch-all for undefined routes
+
+$ curl http://localhost:3000/api/tasks/999
+HTTP 404
+{"error":"NotFoundError","message":"Task not found"}
+
+$ curl http://localhost:3000/nonexistent
+HTTP 404
+{"error":"NotFound","message":"Route GET /nonexistent not found"}
+
+TASK-002 ✅ Complete
+
+---
+
+## TASK-003: Structured Logging (Winston)
+
+$ npm install winston
+added 26 packages, audited 103 packages in 2s
+found 0 vulnerabilities
+
+$ cat src/utils/logger.js
+  - Winston with console transport
+  - JSON format in production, colorized simple in development
+  - LOG_LEVEL configurable via environment variable
+  - Silent in test mode
+
+$ cat src/middleware/requestLogger.js
+  - Logs method, URL, statusCode, duration for every request
+
+$ npm start
+info: TaskFlow API running on port 3000
+
+$ curl http://localhost:3000/api/tasks
+  Server log: info: request completed {"method":"GET","url":"/api/tasks","statusCode":200,"duration":"3ms"}
+
+TASK-003 ✅ Complete
+
+---
+
+## TASK-004: Comprehensive Test Suite (Jest + Supertest)
+
+$ npm install --save-dev jest supertest
+added 315 packages, audited 418 packages in 20s
+found 0 vulnerabilities
+
+$ npm test
+
+> taskflow-api@1.0.0 test
+> jest --verbose --forceExit
+
+ PASS  tests/tasks.test.js
+  GET /
+    ✓ should return service metadata (52 ms)
+  GET /api/tasks
+    ✓ should return all tasks (8 ms)
+  GET /api/tasks/:id
+    ✓ should return a task by ID (9 ms)
+    ✓ should return 404 for non-existent task (27 ms)
+  POST /api/tasks
+    ✓ should create a task with valid data (47 ms)
+    ✓ should reject request missing title (7 ms)
+    ✓ should reject title longer than 200 characters (6 ms)
+    ✓ should reject invalid status (7 ms)
+    ✓ should reject invalid priority (6 ms)
+  PUT /api/tasks/:id
+    ✓ should update a task with valid data (8 ms)
+    ✓ should return 404 for non-existent task (19 ms)
+    ✓ should reject empty update body (6 ms)
+  DELETE /api/tasks/:id
+    ✓ should delete an existing task (11 ms)
+    ✓ should return 404 for non-existent task (7 ms)
+  404 catch-all
+    ✓ should return 404 for undefined routes (6 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       15 passed, 15 total
+Time:        1.884 s
+
+TASK-004 ✅ Complete

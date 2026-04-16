@@ -1,0 +1,39 @@
+$ mkdir .squad
+$ cat .squad/config.yml
+# SQUAD Configuration
+# Defines the team structure and agent settings for this repository
+
+project:
+  name: taskflow-api
+  description: Personal task management REST API
+  language: javascript
+  framework: express
+  node_version: "20"
+
+agents:
+  brain:
+    role: Architect & Planner
+  hands:
+    role: Implementer
+  eyes:
+    role: Code Reviewer
+  mouth:
+    role: Documentarian
+  ralph:
+    role: CI/CD & DevOps Engineer
+
+workflow:
+  cycle: plan-implement-review-document-ship
+
+$ cat .squad/team.md
+# SQUAD Team Configuration — TaskFlow API
+## Team Roster
+| Agent   | Role                | Primary Responsibility                                     |
+|---------|--------------------|------------------------------------------------------------|
+| Brain   | Architect & Planner | Decomposes work into tasks, designs solutions              |
+| Hands   | Implementer         | Writes production code, implements features and fixes      |
+| Eyes    | Reviewer            | Reviews code for quality, security, performance            |
+| Mouth   | Documentarian       | Writes and updates all documentation                       |
+| Ralph   | CI/CD & DevOps      | Manages pipelines, deployment configs, infrastructure      |
+
+SQUAD directory initialized successfully.

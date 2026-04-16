@@ -1,0 +1,90 @@
+$ npm install
+audited 69 packages in 1s
+15 packages are looking for funding
+  run `npm fund` for details
+found 0 vulnerabilities
+
+$ npm start
+> taskflow-api@1.0.0 start
+> node src/index.js
+TaskFlow API running on port 3000
+
+$ curl http://localhost:3000/
+{
+  "message": "TaskFlow API - Personal Task Management",
+  "version": "1.0.0",
+  "endpoints": {
+    "tasks": "/api/tasks"
+  }
+}
+
+$ curl http://localhost:3000/api/tasks
+[
+  {
+    "id": 1,
+    "title": "Migrate authentication to OAuth2",
+    "description": "Replace legacy session-based auth with OAuth2 protocol for better security and scalability",
+    "status": "in-progress",
+    "priority": "high",
+    "createdAt": "2024-01-15T08:00:00Z",
+    "updatedAt": "2024-01-20T14:30:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Refactor payment gateway integration",
+    "description": "Modernize payment processing to support multiple providers and improve error handling",
+    "status": "pending",
+    "priority": "high",
+    "createdAt": "2024-01-16T09:15:00Z",
+    "updatedAt": "2024-01-16T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Implement real-time notification system",
+    "description": "Add WebSocket support for push notifications to enhance user engagement",
+    "status": "pending",
+    "priority": "medium",
+    "createdAt": "2024-01-17T10:30:00Z",
+    "updatedAt": "2024-01-17T10:30:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Optimize database query performance",
+    "description": "Review and optimize slow-running queries identified in production monitoring",
+    "status": "completed",
+    "priority": "medium",
+    "createdAt": "2024-01-10T07:00:00Z",
+    "updatedAt": "2024-01-18T16:45:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Update API documentation",
+    "description": "Generate OpenAPI specs and update developer portal with latest endpoint changes",
+    "status": "pending",
+    "priority": "low",
+    "createdAt": "2024-01-18T11:00:00Z",
+    "updatedAt": "2024-01-18T11:00:00Z"
+  }
+]
+
+$ curl http://localhost:3000/api/tasks/1
+{
+  "id": 1,
+  "title": "Migrate authentication to OAuth2",
+  "description": "Replace legacy session-based auth with OAuth2 protocol for better security and scalability",
+  "status": "in-progress",
+  "priority": "high",
+  "createdAt": "2024-01-15T08:00:00Z",
+  "updatedAt": "2024-01-20T14:30:00Z"
+}
+
+$ curl -X POST http://localhost:3000/api/tasks -H "Content-Type: application/json" -d '{"title":"Test SQUAD setup","description":"Verify the API works","priority":"low"}'
+{
+  "id": 6,
+  "title": "Test SQUAD setup",
+  "description": "Verify the API works",
+  "status": "pending",
+  "priority": "low",
+  "createdAt": "2026-04-16T17:37:11.411Z",
+  "updatedAt": "2026-04-16T17:37:11.411Z"
+}
