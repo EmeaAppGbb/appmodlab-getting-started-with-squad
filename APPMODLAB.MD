@@ -11,7 +11,7 @@ modernizationTools: []
 agenticTools: ["SQUAD"]
 tags: ["multi-agent", "task-management", "REST API", "agentic-development", "squad-intro"]
 extensions: ["github.copilot"]
-thumbnail: ""
+thumbnail: "https://raw.githubusercontent.com/EmeaAppGbb/appmodlab-getting-started-with-squad/main/assets/thumbnail-gpt-image.png"
 video: ""
 version: "1.0.0"
 ---
